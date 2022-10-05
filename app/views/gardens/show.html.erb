@@ -12,3 +12,25 @@
   <%= button_to "Destroy this garden", @garden, method: :delete %>
 </div>
 <p style="color: green"><%= notice %></p>
+<div class="container">
+<div class="row mt-5">
+    <% @garden.plants.each do |plant| %>
+      <div class="col-4">
+        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= plant.image_url %>')">
+          <%= plant.name %>
+          <%= link_to "+", plant_path(plant), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "card-remove-link" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <h3>Add a plant</h3>
+      <%= simple_form_for [@garden, @plant] do |f| %>
+        <%= f.input :name %>
+        <%= f.input :image_url %>
+        <%= f.submit "Add the Plant", class:"btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
